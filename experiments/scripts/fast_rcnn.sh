@@ -35,6 +35,24 @@ case $DATASET in
     PT_DIR="coco"
     ITERS=280000
     ;;
+  foodinc)
+    TRAIN_IMDB="foodinc_2017_trainval"
+    TEST_IMDB="foodinc_2017_test"
+    PT_DIR="foodinc"
+    ITERS=70000
+    ;;
+  foodinc_sample)
+    TRAIN_IMDB="foodinc_sample_2017_trainval"
+    TEST_IMDB="foodinc_sample_2017_test"
+    PT_DIR="foodinc_sample"
+    ITERS=100
+    ;;
+  foodinc_reduced)
+    TRAIN_IMDB="foodinc_reduced_2017_trainval"
+    TEST_IMDB="foodinc_reduced_2017_test"
+    PT_DIR="foodinc_reduced"
+    ITERS=70000
+    ;;
   *)
     echo "No dataset given"
     exit
@@ -47,7 +65,7 @@ echo Logging output to "$LOG"
 
 time ./tools/train_net.py --gpu ${GPU_ID} \
   --solver models/${PT_DIR}/${NET}/fast_rcnn/solver.prototxt \
-  --weights data/imagenet_models/${NET}.v2.caffemodel \
+  --weights /mnt2/givenModels/imagenet/${NET}.caffemodel \
   --imdb ${TRAIN_IMDB} \
   --iters ${ITERS} \
   ${EXTRA_ARGS}

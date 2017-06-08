@@ -11,7 +11,7 @@
 
 import _init_paths
 from fast_rcnn.test import apply_nms
-from fast_rcnn.config import cfg
+from fast_rcnn.config import cfg, cfg_from_file
 from datasets.factory import get_imdb
 import cPickle
 import os, sys, argparse
@@ -34,6 +34,8 @@ def parse_args():
                         action='store_true')
     parser.add_argument('--nms', dest='apply_nms', help='apply nms',
                         action='store_true')
+    parser.add_argument('--cfg', dest='cfg_file',
+                        help='optional config file', default=None, type=str)
 
     if len(sys.argv) == 1:
         parser.print_help()
@@ -60,6 +62,9 @@ def from_dets(imdb_name, output_dir, args):
 
 if __name__ == '__main__':
     args = parse_args()
+
+    if args.cfg_file is not None:
+        cfg_from_file(args.cfg_file)
 
     output_dir = os.path.abspath(args.output_dir[0])
     imdb_name = args.imdb_name
